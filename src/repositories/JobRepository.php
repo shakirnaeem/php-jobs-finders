@@ -27,15 +27,34 @@
         }
         public function Add($model)
         {
-
+            $sql = "INSERT INTO job (ad_date, ad_source, ad_type, title, positions, locations, keywords, ad_detail) 
+                    VALUES('".$model->ad_date."', ".$model->ad_source.", ".$model->ad_type.",'".$model->title."', '".$model->positions."', '".$model->locations."', '".$model->keywords."', '".$model->ad_detail."')";
+            $db = new DbContext();
+            $result = $db->ExecuteNonQuery($sql);
+            return $result;   
         }
         public function Update($model)
         {
-
+            $sql = "UPDATE job SET 
+                ad_date = '".$model->ad_date."',
+                ad_source = ".$model->ad_source.",
+                ad_type = ".$model->ad_type.",
+                title = '".$model->title."',
+                positions = '".$model->positions."',
+                locations = '".$model->locations."',
+                keywords = '".$model->keywords."',
+                ad_detail = '".$model->ad_detail."'
+                WHERE id = ". $model->id;
+            $db = new DbContext();
+            $result = $db->ExecuteNonQuery($sql);
+            return $result;
         }
         public function Delete($id)
         {
-
-        }   
+            $sql = "DELETE FROM job WHERE id = ". $id;
+            $db = new DbContext();
+            $result = $db->ExecuteNonQuery($sql);
+            return $result;
+        } 
     }
 ?>

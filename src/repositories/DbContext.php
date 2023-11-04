@@ -25,6 +25,7 @@
             return $data;
         }
         public function ExecuteNonQuery($sql){
+            print_r($sql);
             $conn = $this->CreateConnection();
             $result = $conn->query($sql);
             $conn->close();

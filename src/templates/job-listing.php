@@ -1,7 +1,7 @@
 <?php
-    include $relativePath . 'src/factories/RepositoryFactory.php';
+    include $relativePath . 'src/repositories/JobRepository.php';
     
-    $jobRepository = RepositoryFactory::CreateRepository('job');
+    $jobRepository = new JobRepository();
     $data = $jobRepository->GetAll($searchText);
 
     function formatePositions($job){

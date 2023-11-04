@@ -1,10 +1,9 @@
 <?php
-    include $relativePath . 'src/factories/RepositoryFactory.php';
-    //include $relativePath . 'src/models/JobModel.php';
+    include $relativePath . 'src/repositories/JobRepository.php';
     
     $data = new JobModel();
     if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
-        $jobRepository = RepositoryFactory::CreateRepository('job');
+        $jobRepository = new JobRepository();
         $data = $jobRepository->GetById($_GET['id']);
     }
     $adSourceList = ['', 'Jang', 'The News', 'Dawn', 'Nawa-i-Waqt', 'Express', 'The Nation'];
