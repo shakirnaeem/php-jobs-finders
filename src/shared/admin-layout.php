@@ -1,5 +1,6 @@
 <?php
-    $rootUrl = "http://" .$_SERVER['HTTP_HOST'] . "/php-jobs-finders/";
+    include_once $relativePath . 'app_init.php';
+    $rootUrl = "http://" .$_SERVER['HTTP_HOST'] . $_ENV["SUB_DIR"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +20,7 @@
     </head>
     <body class="antialiased">
 
-    <header>
+    <header class="d-none">
         <?php require($relativePath . 'src/shared/admin-top-nav.php'); ?>
         <?php require($relativePath . 'src/shared/admin-searchbar.php'); ?>
         <?php require($relativePath . 'src/shared/admin-sidebar.php'); ?>        

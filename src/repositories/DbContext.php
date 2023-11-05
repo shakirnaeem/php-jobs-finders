@@ -24,13 +24,32 @@
 
             return $data;
         }
+        
+        public function ExecuteRowCount($sql){
+            $data = array();
+            $conn = $this->CreateConnection();
+            $result = $conn->query($sql);
+            $conn->close();
+
+            return $result->num_rows;
+        }
+        
         public function ExecuteNonQuery($sql){
-            print_r($sql);
             $conn = $this->CreateConnection();
             $result = $conn->query($sql);
             $conn->close();
 
             return $result;
+        }
+        
+        public function ApplyPaging($sql, $request){
+            if($request != null && 
+                isset($request["page"]) && is_numeric($request["page"]) && $request["page"] > 0 &&
+                isset($request["pageSize"]) && is_numeric($request["pageSize"]) && $request["pageSize"] > 0
+                )
+                $sql .= " LIMIT " . $request["pageSize"] . " OFFSET " . (($request["page"] - 1) * $request["pageSize"]);
+
+            return $sql;
         }
     }
 ?>

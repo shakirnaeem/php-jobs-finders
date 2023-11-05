@@ -6,13 +6,22 @@
     class KeywordRepository implements IRepository
     {
         public function GetAll($request=null){
-            $sql = "SELECT * FROM `job-keyword`";
-            if($request != null && $request != '')
-                $sql = "SELECT * FROM `job-keyword` WHERE keyword LIKE '% . $request . %'";
+            $response = [ "result" => [], "count" => 0 ];
+            $sql = "SELECT  
+                    JK1.id, JK1.keyword, JK1.active,
+                    CASE WHEN JK2.keyword IS NULL THEN 'None' ELSE JK2.keyword END AS parent
+                FROM `job-keyword` JK1 LEFT OUTER JOIN `job-keyword` JK2 ON JK1.parent = JK2.id";
+            
+            if($request != null && isset($request["keyword"]) && $request["keyword"] != '')
+                $sql .= " WHERE JK1.keyword LIKE '% . $request->keyword . %'";
+            
             $db = new DbContext();
-            $result = $db->ExecuteQuery($sql, "KeywordMapping::map");
+            $response["count"] = $db->ExecuteRowCount($sql);
+            $sql = $db->ApplyPaging($sql, $request);
 
-            return $result;
+            $response["result"] = $db->ExecuteQuery($sql, "KeywordMapping::map");
+
+            return $response;
         }
         
         public function GetParentKeywords(){

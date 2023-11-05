@@ -1,5 +1,5 @@
 <?php
-    $rootUrl = "http://" .$_SERVER['HTTP_HOST'] . "/web/";
+    $rootUrl = "http://" .$_SERVER['HTTP_HOST'] . $_ENV["SUB_DIR"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
